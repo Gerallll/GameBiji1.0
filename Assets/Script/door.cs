@@ -10,6 +10,7 @@ public class Door : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip openSound;
     public AudioClip closeSound;
+    public Collider Object;
 
     void OnTriggerStay(Collider other)
     {
@@ -41,12 +42,14 @@ public class Door : MonoBehaviour
                     doorAnim.ResetTrigger("close");
                     doorAnim.SetTrigger("open");
                     audioSource.PlayOneShot(openSound);
+                    Object.enabled = true;
                 }
                 if(toggle == false)
                 {
                     doorAnim.ResetTrigger("open");
                     doorAnim.SetTrigger("close");
                     audioSource.PlayOneShot(closeSound);
+                    Object.enabled = false;
                 }
                 intText.SetActive(false);
                 interactable = false;

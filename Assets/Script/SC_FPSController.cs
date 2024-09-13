@@ -56,8 +56,12 @@ public class SC_FPSController : MonoBehaviour
     private float timeSinceLastShiftPress = 0f; // Timer to track time since last shift press
     public float shiftResetTime = 2f; // Time after which shiftPressedTime resets if shift is not pressed
 
+    public Image blackScreen;
+    public float fadeDuration = 1f;
+
     void Start()
     {
+        StartCoroutine(FadeInScreen());
         characterController = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
@@ -72,6 +76,23 @@ public class SC_FPSController : MonoBehaviour
 
         // Initialize text to be invisible
         exhaustionText.gameObject.SetActive(false);
+    }
+
+     IEnumerator FadeInScreen()
+    {
+        float elapsedTime = 0f;
+        Color color = blackScreen.color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration); // Fade out
+            blackScreen.color = color;
+            yield return null;
+        }
+
+        color.a = 0f; // Pastikan alpha tepat di 0
+        blackScreen.color = color;
     }
 
     void Update()
