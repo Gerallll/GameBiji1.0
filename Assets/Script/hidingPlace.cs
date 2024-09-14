@@ -45,7 +45,7 @@ public class hidingPlace : MonoBehaviour
                 {
                     if(monsterScript.chasing == true)
                     {
-                        monsterScript.stopChase();
+                        monsterScript.ChooseRandomDestination();
                     }
                 }
                 stopHideText.SetActive(true);
